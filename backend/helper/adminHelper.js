@@ -15,6 +15,30 @@ const adminHelper = {
     },
 
 
+    findAdminByToken: (tokenID) => {
+        return new Promise((resolve, reject) => {
+            Admin.findById(tokenID).then((data) => {
+                resolve(data)
+            }).catch((err) => {
+                reject(err)
+            })
+        })
+    },
+
+
+    updateAdmin: function (adminID, data) {
+        return new Promise((res, rej) => {
+
+            Admin.findByIdAndUpdate(adminID, data).then((data) => {
+                if (data) res(data);
+                else rej();
+            }).catch((err) => {
+                rej(err)
+            })
+        })
+    },
+
+
     getAllUser: function () {
         return new Promise((resolve, reject) => {
 
@@ -39,7 +63,7 @@ const adminHelper = {
     },
 
 
-     
+
 
     updateUser: function (user, newUser) {
         return new Promise((resolve, reject) => {
@@ -73,7 +97,7 @@ const adminHelper = {
                 reject(err)
             })
         })
-    } 
+    }
 
 }
 

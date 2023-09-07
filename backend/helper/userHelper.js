@@ -17,6 +17,23 @@ const userHelper = {
         });
     },
 
+
+    findUser: (userid)=>{
+        return new Promise((resolve, reject) => {
+            User.findById(userid).then((data) => {
+                console.log("My data", data);
+                if (!data) {
+                    resolve(null);
+                }
+                resolve(data)
+            }).catch((err) => {
+                reject(err)
+            })
+        });
+    },
+
+    
+
     updateUserProfile: function (userid, filename) {
         return new Promise((resolve, reject) => {
             User.updateOne(
@@ -33,7 +50,26 @@ const userHelper = {
                     reject(err.message)
                 })
         })
-    }
+    },
+
+
+    updateUser: function (user, newUser) {
+        return new Promise((resolve, reject) => {
+            User.updateOne(
+                {
+                    _id: new mongoose.Types.ObjectId(user)
+                },
+                {
+                    $set: newUser
+                }
+            ).then((data) => {
+                console.log("Update data", data);
+                resolve(data)
+            }).catch((err) => {
+                reject(err)
+            })
+        })
+    },
 }
 
 module.exports = userHelper;

@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express();
+let cookieParser = require("cookie-parser")
 
 let logger = require("morgan")
 let cors = require("cors")
@@ -10,6 +11,7 @@ let mongooseConnection = require("./mongo/connection");
 
 let bodyParser = require("body-parser")
 
+app.use(cookieParser())
 
 app.use(
     cors({
@@ -24,7 +26,7 @@ app.use(bodyParser.json())
 mongooseConnection.connection();
 
 let adminRouter = require("./router/adminRouter");
-let userRouter = require("./router/userRouter");
+let userRouter = require("./router/userRouter"); 
 
 
 app.use(express.static("public"))

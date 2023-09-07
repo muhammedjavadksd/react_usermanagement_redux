@@ -5,6 +5,9 @@ let model = new mongoose.Schema({
     username: {
         type: String,
     },
+    refreshToken:{
+        type:String
+    },
     password: {
         type: String,
     }
