@@ -15,10 +15,12 @@ const instance = require("../axios/instance")
 
 
 function isValidJWT(req, res, next) {
-   
+
+
+
 
     const tokenHeader = req.header('Authorization');
-    console.log(tokenHeader)
+    console.log("Header", tokenHeader)
 
     if (tokenHeader) {
         const token = tokenHeader.split(" ")[1];
@@ -28,7 +30,7 @@ function isValidJWT(req, res, next) {
                 if (err) {
                     console.log("Invalid JWT");
                     res.status(401).json({ status: false, msg: "Invalid JWT" });
-                } else { 
+                } else {
                     next();
                 }
             });
@@ -39,7 +41,8 @@ function isValidJWT(req, res, next) {
     } else {
         console.log("No JWT provided");
         res.status(401).json({ status: false, msg: "No JWT provided" });
-    } 
+    }
+
 
 }
 
@@ -99,7 +102,7 @@ router.get("/validate_jwt", (req, res) => {
 
 router.post("/admin_login", async (req, res) => {
 
- 
+
     console.log("Reached on here")
     let username = req.body.username;
     let password = req.body.password;
@@ -135,7 +138,7 @@ router.post("/admin_login", async (req, res) => {
 router.get("/get_all_user", isValidJWT, async (req, res) => {
 
 
-   
+
     adminHelper.getAllUser().then((data) => {
         if (data) {
             res.send({ status: true, users: data })
@@ -168,9 +171,9 @@ router.get("/get_user", isValidJWT, (req, res) => {
 })
 
 
-router.post("/update_user", isValidJWT,async (req, res) => {
+router.post("/update_user", isValidJWT, async (req, res) => {
 
- 
+
 
     let user_id = req.body.userid;
     let profile = req.files?.profile
@@ -213,7 +216,7 @@ router.post("/update_user", isValidJWT,async (req, res) => {
 })
 
 
-router.post("/delete_user",isValidJWT, (req, res) => {
+router.post("/delete_user", isValidJWT, (req, res) => {
 
     let user_id = req.body.user_id;
     console.log("Delete user", user_id)
@@ -228,7 +231,7 @@ router.post("/delete_user",isValidJWT, (req, res) => {
 
 
 
-router.post("/add_user",isValidJWT, async (req, res) => {
+router.post("/add_user", isValidJWT, async (req, res) => {
 
     let file = req.files?.profile
     let fileName = "user_profile_" + file?.name
@@ -265,7 +268,7 @@ router.post("/add_user",isValidJWT, async (req, res) => {
 
 
 
-router.get("/get_edit_value",isValidJWT, (req, res) => {
+router.get("/get_edit_value", isValidJWT, (req, res) => {
 
     let editID = req.query.editid;
 
